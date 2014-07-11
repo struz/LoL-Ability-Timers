@@ -41,6 +41,8 @@ To remove this functionality you must restart the program, there are no inbuilt 
 When creating this program, IDA was used for disassembly. An IDA database was created and commented as the program was made, but as it is ~1GB it is not hosted here. 
 A document full of the findings made while creating the program has also not been listed here, although if anybody is interested in that information then feel free to email me.
 
+The DirectX9 files are also required ([download the DirectX SDK] (http://www.microsoft.com/en-au/download/details.aspx?id=6812)) and must be linked to the project file.
+
 ## Legal Disclaimer
 Use of this program is done entirely at the user's discretion. I take no responsibility for anyone using this program who gets punished 
 in any way by Riot Games, or any other problems resulting from the use of this software.
