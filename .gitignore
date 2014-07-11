@@ -42,3 +42,7 @@ ipch/
 *.vcxproj.user
 *.suo
 *.log
+
+# Project specific ignore
+Debug/
+Release/

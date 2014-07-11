@@ -1,3 +1,20 @@
+/*  LoL Ability Timers. Injects into League of Legends to show ability
+timers for all champions.
+Copyright (C) 2014  Matthew Whittington
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
 #include "stdafx.h"
 #include "DataAccessor.h"
 #include "MemoryManager.h"
@@ -46,6 +63,11 @@ bool DataAccessor::IsScoreboardShown() {
 	return *reinterpret_cast<bool*>(hudFlashClass + 0x98);
 }
 
+/// <summary>Scans program memory for the offsets used to access game data in League of
+/// Legends. Will write to a r3d log using the riot logging function if it cannot find
+/// a given offset, but this will fail if it could not find the r3d logging function
+/// offset itself.</summary>
+/// <returns>Always true.</returns>
 bool DataAccessor::GetOffsetsDynamically() {
 	DWORD memoryAddress = MemoryManager::ScanMemoryForPattern(mModuleInfo,
 		"DD1C245168????????6A006A016A02E8????????8B87AC090000") + 16; // 16 bytes in from the match

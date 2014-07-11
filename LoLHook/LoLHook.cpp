@@ -1,5 +1,19 @@
-// LoLHook.cpp : Defines the entry point for the console application.
-//
+/*  LoL Ability Timers. Injects into League of Legends to show ability
+timers for all champions.
+Copyright (C) 2014  Matthew Whittington
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 #include "stdafx.h"
 
@@ -17,6 +31,7 @@ enum ErrorCodes {
 	LOLH_ERROR_RUNNING_INIT
 };
 
+/// <summary>Gets the process ID of the target process by finding its window.</summary>
 DWORD FindTargetProcessID(std::wstring windowName) {
 	DWORD pid;
 	HWND hWnd; // Handle to the main window of the target process
@@ -29,6 +44,7 @@ DWORD FindTargetProcessID(std::wstring windowName) {
 	return pid;
 }
 
+/// <summary>Opens a handle to the target process.</summary>
 HANDLE OpenTargetProcess(DWORD pid) {
 	DWORD processAccessFlags = PROCESS_ALL_ACCESS;
 	HANDLE hProcess;
@@ -45,6 +61,7 @@ HANDLE OpenTargetProcess(DWORD pid) {
 	return hProcess;
 }
 
+/// <summary>Allocates memory for the DLL path in the target process memory space.</summary>
 void* AllocMemoryInTargetProcess(HANDLE hProcess, std::wstring moduleName) {
 	void* pRemoteModuleName = NULL;
 	SIZE_T modNameLen = moduleName.length() + 1;
@@ -60,6 +77,7 @@ void* AllocMemoryInTargetProcess(HANDLE hProcess, std::wstring moduleName) {
 	return pRemoteModuleName;
 }
 
+/// <summary>Writes the path of the DLL to inject, into the target process memory space.</summary>
 BOOL WriteDLLNameToTargetProcess(HANDLE hProcess, std::wstring moduleName, void* pRemoteModuleName) {
 	SIZE_T modNameLen = moduleName.length() + 1;
 	SIZE_T numBytesWritten = 0;
@@ -80,6 +98,7 @@ BOOL WriteDLLNameToTargetProcess(HANDLE hProcess, std::wstring moduleName, void*
 	return result;
 }
 
+/// <summary>Loads the injected DLL into the remote process.</summary>
 DWORD LoadLibraryInRemoteProcess(HANDLE hProcess, void* pRemoteModuleName, DWORD modNameLen) {
 	HMODULE hKernel32 = GetModuleHandle(L"Kernel32");
 	DWORD hLoadedLibModule = NULL;
@@ -112,6 +131,7 @@ DWORD LoadLibraryInRemoteProcess(HANDLE hProcess, void* pRemoteModuleName, DWORD
 	return hLoadedLibModule;
 }
 
+/// <summary>Runs the Init function in the injected DLL.</summary>
 int RunInitInRemoteProcess(HANDLE hProcess, DWORD initFuncAddress) {
 	DWORD exitCode = NULL;
 
