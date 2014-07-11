@@ -46,3 +46,4 @@ ipch/
 # Project specific ignore
 Debug/
 Release/
+archive/

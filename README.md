@@ -20,6 +20,11 @@ seen the enemy cast the spell (i.e. the enemy cannot be in fog of war if you wan
 Once the DLL is injected, it hooks into some DirectX calls in order to draw text to the screen. Showing the scoreboard in game will also
 show each champions current cooldowns (although the interface isn't very good looking).
 
+## Usage instructions
+Build the solution (two projects) and run LoLHook.exe after League of Legends has entered the loading screen. Once in game you should then
+be able to hold tab (or whatever other keybind is used for your scoreboard) and see the ability timers for every champion in the game.
+To remove this functionality you must restart the program, there are no inbuilt unhook / exit methods.
+
 ## Goals
 + Learn to reverse engineer
     + Learn x86 ASM
@@ -30,7 +35,7 @@ show each champions current cooldowns (although the interface isn't very good lo
     + How to hook a function (related to x86 ASM)
     + How to use DLL injection to run code in a remote process
 + Learn / refresh Windows API knowledge
-+ Refresh C++ knowledge
++ Refresh / expand C++ knowledge
 
 ## Extras (not in repository)
 When creating this program, IDA was used for disassembly. An IDA database was created and commented as the program was made, but as it is ~1GB it is not hosted here. 
