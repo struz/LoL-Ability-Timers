@@ -43,6 +43,9 @@ A document full of the findings made while creating the program has also not bee
 
 The DirectX9 files are also required ([download the DirectX SDK] (http://www.microsoft.com/en-au/download/details.aspx?id=6812)) and must be linked to the project file.
 
+## Notes
+I have tried to make this somewhat patch proof, but it will likely still need updating at least once for every major update to League of Legends. Thus, if the program doesn't work it likely hasn't been updated since the last major patch. The program is structured to allow easy and convenient changing of offsets within the code but it still takes some time to locate and update the offsets. The last patch this was updated for is 4.11.
+
 ## Legal Disclaimer
 Use of this program is done entirely at the user's discretion. I take no responsibility for anyone using this program who gets punished 
-in any way by Riot Games, or any other problems resulting from the use of this software.
+in any way by Riot Games, or for any other problems resulting from the use of this software.
