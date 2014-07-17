@@ -58,8 +58,6 @@ bool DataAccessor::IsScoreboardShown() {
 	// required offset
 	DWORD menuGUI = *reinterpret_cast<DWORD*>((DWORD)mModuleInfo.modBaseAddr + mpMenu_GUI);
 	DWORD hudFlashClass = *reinterpret_cast<DWORD*>(menuGUI + 0x88);
-	//DWORD secondPtr = *reinterpret_cast<DWORD*>(firstPtr);
-	//DWORD hudFlashClass = *reinterpret_cast<DWORD*>(secondPtr + 0x38);
 	return *reinterpret_cast<bool*>(hudFlashClass + 0x98);
 }
 
