@@ -93,13 +93,13 @@ public:
 		if (index >= MAX_SPELLBOOK_SLOTS)
 			return NULL;
 		return SpellDataInstAccessor(
-			*reinterpret_cast<DWORD*>(mBaseMemoryAddress + 0x48 + (index * sizeof(DWORD)))
+			*reinterpret_cast<DWORD*>(mBaseMemoryAddress + 0x4D0 + (index * sizeof(DWORD)))
 		);
 	}
 	BYTE IsCastingSpell() {
-		return *reinterpret_cast<BYTE*>(mBaseMemoryAddress + 0x28);
+		return *reinterpret_cast<BYTE*>(mBaseMemoryAddress + 0x428);
 	}
 	BYTE IsSummonerSpellbook() {
-		return *reinterpret_cast<BYTE*>(mBaseMemoryAddress + 0x3C74);
+		return *reinterpret_cast<BYTE*>(mBaseMemoryAddress + 0x8);
 	}
 };

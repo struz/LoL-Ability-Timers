@@ -277,7 +277,7 @@ HRESULT D3DDisplayManager::DoDrawChampionCooldownsFromCache(LPDIRECT3DDEVICE9 pD
 
 	// Draw the champ name
 	DrawCooldownTextToScreen(pDevice, x, y, 220, colorR, colorG, colorB,
-		StringHolder_GetCString(pHero->GetChampName()), FontType::TITLE);
+		pHero->GetSkinName(), FontType::TITLE);
 	y += 35;
 
 	// Draw the ability text
@@ -494,7 +494,7 @@ HRESULT D3DDisplayManager::DoDrawChampionCooldowns(LPDIRECT3DDEVICE9 pDevice,
 
 	// Draw the champ name
 	DrawCooldownTextToScreen(pDevice, x, y, 220, colorR, colorG, colorB,
-		StringHolder_GetCString(pHero->GetChampName()), FontType::TITLE);
+		pHero->GetSkinName(), FontType::TITLE);
 	y += 35;
 
 	// String to hold our data before drawing

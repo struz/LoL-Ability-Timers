@@ -76,13 +76,13 @@ public:
 	/// <summary>Gets the spellbook of the obj_AI_Hero for summoner spells.</summary>
 	/// <returns>A SpellbookAccessor that can be used to access the spells.</returns>
 	SpellbookAccessor GetSummonerSpellbook() {
-		return SpellbookAccessor(mBaseMemoryAddress + 0x5870);
+		return SpellbookAccessor(mBaseMemoryAddress + 0x5878);
 	}
 
-	/// <summary>Gets the champion name of the obj_AI_Base.</summary>
-	/// <returns>A STRING_HOLDER containing the champion name.</returns>
-	STRING_HOLDER* GetChampName() {
-		return *reinterpret_cast<STRING_HOLDER**>(mBaseMemoryAddress + 0x55C4);
-	}
+	///// <summary>Gets the champion name of the obj_AI_Base.</summary>
+	///// <returns>A STRING_HOLDER containing the champion name.</returns>
+	//STRING_HOLDER* GetChampName() {
+	//	return *reinterpret_cast<STRING_HOLDER**>(mBaseMemoryAddress + 0x55C4);
+	//}
 };
 
