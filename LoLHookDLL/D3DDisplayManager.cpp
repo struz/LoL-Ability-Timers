@@ -197,7 +197,7 @@ bool D3DDisplayManager::CacheChampionCooldownData() {
 		}
 
 		// Add the summoner abilities to the string
-		spellbook = pHero->GetSummonerSpellbook();
+		spellbook = pHero->GetSummonerSpellbookByVtable();
 		for (DWORD i = 0; i < 2; i++) {
 			SpellDataInstAccessor spellDataInst = spellbook.GetSpellDataInstForSlot(i);
 
@@ -514,7 +514,7 @@ HRESULT D3DDisplayManager::DoDrawChampionCooldowns(LPDIRECT3DDEVICE9 pDevice,
 	}
 
 	// Draw their summoners
-	spellbook = pHero->GetSummonerSpellbook();
+	spellbook = pHero->GetSummonerSpellbookByVtable();
 	for (DWORD i = 0; i < 2; i++) {
 		SpellDataInstAccessor spellDataInst = spellbook.GetSpellDataInstForSlot(i);
 		float cooldownSecs = spellDataInst.GetCooldownExpires() - simulationTime;

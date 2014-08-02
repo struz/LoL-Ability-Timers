@@ -19,3 +19,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 #include "ObjectAccessor.h"
 
 NullReferenceException NULL_REF_EX;
+
+/// <summary>Given the base address of a class (which should point to the
+/// classes vftable), calls the function at the given offset within the class
+/// vftable and returns the value from that function.</summary>
+/// <param name="classAddr">The base address of the class to perform the
+/// function on.</param>
+/// <param name="offset">The offset into the classes vftable at which the
+/// function to call can be found.</param>
+/// <returns>The value returned by the called function.</returns>
+DWORD ObjectAccessor::CallVtableFunction(DWORD classAddr, DWORD offset) {
+	DWORD retVal = 0;
+
+	// to fix an issue with the name "offset" being unparsable by the compiler
+	DWORD moreFullyNamedOffset = offset;
+
+	__asm {
+		push ecx
+		push ebx
+		push edx
+		mov ecx, classAddr
+		mov ebx, [ecx] // the vtable addr
+		mov edx, moreFullyNamedOffset
+		mov eax, [ebx + edx] // eax = whats in vtable addr + offset = the vtable func addr
+		call eax
+		mov retVal, eax
+		pop edx
+		pop ebx
+		pop ecx
+	}
+	
+	return retVal;
+}

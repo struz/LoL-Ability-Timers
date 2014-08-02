@@ -36,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 #define LOL_PROGRAM_NAME L"League of Legends.exe"
 #define D3D_DLL_NAME L"d3d9.dll"
+#define THIS_DLL_NAME L"LoLHookDLL.dll"
 
 #define RIOT_TEAM_ORDER 100
 #define RIOT_TEAM_CHAOS 200
@@ -44,6 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 #define LOG_MESSAGES
 // convenience macro for mass disabling of logging
 #ifdef LOG_MESSAGES
+	#include "DataAccessor.h"
 	#define CallRiotLog(x, ...) DataAccessor::GetInstance()->GetRiotLog()(3, 1, 0, x, ##__VA_ARGS__)
 #else
 	#define CallRiotLog(x)

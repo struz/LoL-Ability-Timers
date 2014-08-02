@@ -36,6 +36,8 @@ class ObjectAccessor
 {
 protected:
 	DWORD mBaseMemoryAddress; // the base address of the class in memory
+
+	static DWORD CallVtableFunction(DWORD classAddr, DWORD offset);
 public:
 	/// <summary>Takes a memory address as a base to begin accessing
 	/// data from.</summary>

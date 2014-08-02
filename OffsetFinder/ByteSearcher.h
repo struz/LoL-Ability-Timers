@@ -15,7 +15,21 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-#include "stdafx.h"
-#include "ObjAIAccessor.h"
+#pragma once
+class ByteSearcher
+{
+protected:
+	const static short MAX_CHAR = 256; // number of numbers holdable by a char
 
-OffsetMap ObjAIAccessor::offsetMap = OffsetMap("obj_ai_base");
+	unsigned char* pattern; // pattern to search for (the needle)
+	size_t patternLen; // length of pattern
+	size_t bad_char_skip[MAX_CHAR]; // 1 entry for every possible char
+
+	void PreprocessPattern();
+public:
+	ByteSearcher(const char* pattern, size_t patternLen);
+	~ByteSearcher();
+
+	long SearchBytes(const unsigned char* bytes, size_t bytesLen);
+};
+

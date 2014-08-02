@@ -15,7 +15,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-#include "stdafx.h"
-#include "ObjAIAccessor.h"
+#pragma once
+#include <string>
+class FileHelper
+{
+private:
+	FileHelper() {};
+	static unsigned long long ReadValueFromFile(std::string filename,
+		size_t addressToRead, size_t numBytesToRead);
+public:
+	~FileHelper() {};
+	static unsigned int ReadIntFromFile(std::string filename,
+		size_t addressToRead);
+	static unsigned char ReadByteFromFile(std::string filename,
+		size_t addressToRead);
+	static long long ScanFileForBytes(std::string filename, const char* bytes,
+		size_t bytesLen);
+	static long long ScanFileForString(std::string filename, std::string str);
+	static long long FindReferenceToAddress(std::string filename,
+		unsigned int addr, long baseAddr);
+};
 
-OffsetMap ObjAIAccessor::offsetMap = OffsetMap("obj_ai_base");

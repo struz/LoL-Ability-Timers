@@ -50,7 +50,7 @@ private:
 	// ========================================
 
 	static DataAccessor* gpDataAccessor; // global instance
-public:
+
 	/// <summary>Creates a DataAccessor to access data within the
 	/// module described by moduleInfo.</summary>
 	/// <param name="moduleInfo">A MODULEENTRY32 describing the module
@@ -74,6 +74,7 @@ public:
 
 		pRiotLog(3, 1, 0, "Successfully created DataAccessor instance.");
 	}
+public:
 	~DataAccessor() {
 		delete mDisplayClock;
 		delete mSimulationClock;

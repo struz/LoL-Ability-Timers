@@ -17,15 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 #pragma once
 /// <summary>Contains generic memory access, scanning, and
-/// patching functions.</summary>
+/// patching functions. Is essentially not a class but a list
+/// of functions.</summary>
 class MemoryManager
 {
 private:
 	static BYTE ASCIIHexNumToNum(const char* ascii, BYTE &isWildcard);
 	static BYTE TryPatternMatch(const BYTE* memory, const BYTE* pattern,
 		const BYTE* wildcardMask, int patternSize);
-public:
 	MemoryManager();
+public:
 	~MemoryManager();
 	static DWORD ScanMemoryForPattern(MODULEENTRY32 moduleToScan, std::string pattern);
 	static BYTE PatchByte(DWORD addressToPatch, BYTE newByteValue);

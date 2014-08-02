@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LoLHook", "LoLHook\LoLHook.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LoLHookDLL", "LoLHookDLL\LoLHookDLL.vcxproj", "{A6B27D8F-D687-4B0C-B44D-41A906E6094C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OffsetFinder", "OffsetFinder\OffsetFinder.vcxproj", "{088BADFF-0DB3-4D63-8308-AEBDE394394B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +23,10 @@ Global
 		{A6B27D8F-D687-4B0C-B44D-41A906E6094C}.Debug|Win32.Build.0 = Debug|Win32
 		{A6B27D8F-D687-4B0C-B44D-41A906E6094C}.Release|Win32.ActiveCfg = Release|Win32
 		{A6B27D8F-D687-4B0C-B44D-41A906E6094C}.Release|Win32.Build.0 = Release|Win32
+		{088BADFF-0DB3-4D63-8308-AEBDE394394B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{088BADFF-0DB3-4D63-8308-AEBDE394394B}.Debug|Win32.Build.0 = Debug|Win32
+		{088BADFF-0DB3-4D63-8308-AEBDE394394B}.Release|Win32.ActiveCfg = Release|Win32
+		{088BADFF-0DB3-4D63-8308-AEBDE394394B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,7 +15,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-#include "stdafx.h"
-#include "ObjAIAccessor.h"
+#pragma once
+class OffsetMap
+{
+private:
+	std::string mapName; // the name of the xml node to read from the offset file
 
-OffsetMap ObjAIAccessor::offsetMap = OffsetMap("obj_ai_base");
+	bool offsetMapLoaded = false; // used for lazy initialization of the map
+	std::map<std::string, unsigned int> offsetMap; // the map of names to offsets
+
+	void LoadOffsetMap();
+public:
+	/// <param name="offsetClass">The name of the xml node to read the offset
+	/// details from.</param>
+	OffsetMap(std::string offsetClass) {	
+		mapName = offsetClass;
+	};
+	~OffsetMap() { };
+
+	unsigned int GetOffsetValue(std::string offset);
+};
+
