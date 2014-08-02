@@ -236,7 +236,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	HINSTANCE hDLL = NULL;
 	LOLHOOKINIT lolHookInit = NULL;
 	DWORD initDllRelAddr = NULL;
-	
+
 	hDLL = LoadLibrary(L"LoLHookDLL");
 	if (hDLL != NULL) {
 		lolHookInit = (LOLHOOKINIT)GetProcAddress(hDLL, "_InitDll@4");
@@ -246,7 +246,8 @@ int _tmain(int argc, _TCHAR* argv[])
 			reinterpret_cast<DWORD>(hDLL);
 		FreeLibrary(hDLL);
 
-		std::wstring dllPath = GetPathNameFromFileName(argv[0]);
+		TCHAR* fullPath = _wfullpath(NULL, argv[0], _MAX_PATH);
+		std::wstring dllPath = GetPathNameFromFileName(fullPath);
 		std::wstring dllName = L"LoLHookDLL.dll";
 		return HookLoLProcess(dllPath + dllName, initDllRelAddr);
 	}
