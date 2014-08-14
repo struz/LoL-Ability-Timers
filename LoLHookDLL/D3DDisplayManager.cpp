@@ -191,8 +191,8 @@ bool D3DDisplayManager::CacheChampionCooldownData() {
 				_snprintf_s(outputBuf, sizeof(outputBuf), "%c [%d]: UP\n",
 					mAbilityKey[i], spellDataInst.GetSpellLevel());
 			else
-				_snprintf_s(outputBuf, sizeof(outputBuf), "%c: %3.1f sec\n",
-					mAbilityKey[i], cooldownSecs);
+				_snprintf_s(outputBuf, sizeof(outputBuf), "%c [%d]: %3.1f sec\n",
+					mAbilityKey[i], spellDataInst.GetSpellLevel(), cooldownSecs);
 			cooldownString->append(outputBuf);
 		}
 

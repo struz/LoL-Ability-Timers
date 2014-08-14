@@ -16,6 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 #pragma once
+/// <summary>Class used to read from a game offsets XML file that describes
+/// the offsets required to read game data from the League client. This is
+/// so that the offset file can be patched separately from the binary.
+/// It utilizes late binding and only loads the content when it needs to read
+/// for the first time.</summary>
 class OffsetMap
 {
 private:

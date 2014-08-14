@@ -68,38 +68,50 @@ bool DataAccessor::IsScoreboardShown() {
 /// <returns>Always true.</returns>
 bool DataAccessor::GetOffsetsDynamically() {
 	DWORD memoryAddress = MemoryManager::ScanMemoryForPattern(mModuleInfo,
-		"DD1C245168????????6A006A016A02E8????????8B87AC090000") + 16; // 16 bytes in from the match
+		"558BEC83E4F88B55148D45188B4D0850FF7510FF750CE8????????83C40C8BE55DC3");
+	// this is now using the entire function signature for R3DLog
+
+	// === LEGACY COMMENT KEPT FOR PROCESS KNOWLEDGE ===
 	// what this next line does is turn the relative jump (E8 ?? ?? ?? ??)
 	// used to access the riot log function into an absolute jump by adding it
 	// to the next instruction address (EIP goes to next instruction address + relative value)
 	// then we subtract this absolute value from the base address so that we
 	// have the offset (we don't have to do this but it keeps the interface standard
 	// with the other values here)
-	mRiotLogOffset = (*reinterpret_cast<DWORD*>(memoryAddress) +
-		(memoryAddress + 4)) - reinterpret_cast<DWORD>(mModuleInfo.modBaseAddr);
+	//mRiotLogOffset = (*reinterpret_cast<DWORD*>(memoryAddress) +
+	//	(memoryAddress + 4)) - reinterpret_cast<DWORD>(mModuleInfo.modBaseAddr);
+	/// === END LEGACY COMMENT ===
 
+	mRiotLogOffset = memoryAddress - (DWORD)mModuleInfo.modBaseAddr;
 	pRiotLog = (riot_log)((DWORD)mModuleInfo.modBaseAddr + mRiotLogOffset);
 
-	// we get the logging function first so that we can use it to log
-	// debug info for the rest of the strings
+	// we got the logging function first so that we can use it to log
+	// debug info for the rest of the memory scans
+
 	memoryAddress = MemoryManager::ScanMemoryForPattern(mModuleInfo,
-		"85C90F84????????83B9D800000000A1");
-	if (memoryAddress == NULL)
+		"6A2050E8????????83C4148D45D0B9????????5068????????E8????????A1");
+	if (memoryAddress == NULL) {
 		GetRiotLog()(3, 1, 0, "Error creating DataAccessor: could not find offset for display clock.");
-	memoryAddress += 16; // 16 bytes from the match
+		return false;
+	}
+	memoryAddress += 31; // 31 bytes from the match (pattern len)
 	mDisplayClockOffset = *reinterpret_cast<DWORD*>(memoryAddress) - reinterpret_cast<DWORD>(mModuleInfo.modBaseAddr);
 
 	memoryAddress = MemoryManager::ScanMemoryForPattern(mModuleInfo,
 		"8B0D????????83EC08D905????????83C120DD1C248B01");
-	if (memoryAddress == NULL)
+	if (memoryAddress == NULL) {
 		GetRiotLog()(3, 1, 0, "Error creating DataAccessor: could not find offset for simulation clock.");
+		return false;
+	}
 	memoryAddress += 2; // 2 bytes from the match
 	mSimulationClockOffset = *reinterpret_cast<DWORD*>(memoryAddress) - reinterpret_cast<DWORD>(mModuleInfo.modBaseAddr);
 
 	memoryAddress = MemoryManager::ScanMemoryForPattern(mModuleInfo,
 		"8B15????????33FF8BB3F400000085D27E11");
-	if (memoryAddress == NULL)
+	if (memoryAddress == NULL) {
 		GetRiotLog()(3, 1, 0, "Error creating DataAccessor: could not find offset for array of global objects (size).");
+		return false;
+	}
 	memoryAddress += 2; // 2 bytes from the match
 	mArrayOfGlobalObjects_Size = *reinterpret_cast<DWORD*>(memoryAddress) - reinterpret_cast<DWORD>(mModuleInfo.modBaseAddr);
 
@@ -108,8 +120,10 @@ bool DataAccessor::GetOffsetsDynamically() {
 
 	memoryAddress = MemoryManager::ScanMemoryForPattern(mModuleInfo,
 		"8945E48945E88945ECE8????????8B3D");
-	if (memoryAddress == NULL)
+	if (memoryAddress == NULL) {
 		GetRiotLog()(3, 1, 0, "Error creating DataAccessor: could not find offset for array of champions.");
+		return false;
+	}
 	memoryAddress += 16; // 16 bytes from the match
 	mArrayOfChampions = *reinterpret_cast<DWORD*>(memoryAddress) - reinterpret_cast<DWORD>(mModuleInfo.modBaseAddr);
 
@@ -118,17 +132,23 @@ bool DataAccessor::GetOffsetsDynamically() {
 
 	memoryAddress = MemoryManager::ScanMemoryForPattern(mModuleInfo,
 		"D84DF0D95DE0F30F1055E08B0D");
-	if (memoryAddress == NULL)
+	if (memoryAddress == NULL) {
 		GetRiotLog()(3, 1, 0, "Error creating DataAccessor: could not find offset for player champion.");
+		return false;
+	}
 	memoryAddress += 13; // 13 bytes from the match
 	mPlayerChampion = *reinterpret_cast<DWORD*>(memoryAddress) - reinterpret_cast<DWORD>(mModuleInfo.modBaseAddr);
 
 	memoryAddress = MemoryManager::ScanMemoryForPattern(mModuleInfo,
 		"8B0D????????8B01FF50046A018BC88B10FF5230833D");
-	if (memoryAddress == NULL)
+	if (memoryAddress == NULL) {
 		GetRiotLog()(3, 1, 0, "Error creating DataAccessor: could not find offset for the Menu_GUI.");
+		return false;
+	}
 	memoryAddress += 22; // 22 bytes from the match
 	mpMenu_GUI = *reinterpret_cast<DWORD*>(memoryAddress) - reinterpret_cast<DWORD>(mModuleInfo.modBaseAddr);
+
+	GetRiotLog()(3, 1, 0, "Successfully retrieved DataAccessor addresses.");
 
 	return true;
 }
