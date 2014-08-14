@@ -65,16 +65,20 @@ void CreateOffsetsFile(std::string filename, unsigned int programBase) {
 /// <returns>True if arguments are valid, false otherwise.</summary>
 bool CheckArguments(int argc, char* argv[]) {
 	if (argc < 2) {
-		std::cerr << "No filename provided. Please provide the path to \
+		std::cerr << "Error: No filename provided. Please provide the path to \
 			the League of Legends executable file on the command \
 			line as follows: OffsetFinder.exe [League of Legends.exe path]"
 			<< std::endl;
 		return false;
 	}
 
-	// Here is where we would parse the file name and make sure it is
-	// valid if we were protecting for user input. That's not really the
-	// focus of this project, so this is what it is for now.
+	// We just use the Windows API for this, rather than anything more cross
+	// platform for now.
+	if (!PathFileExistsA(argv[1])) {
+		std::cerr << "Error: The file provided does not exist: " << argv[1];
+		return false;
+	}
+
 	return true;
 }
 
@@ -84,6 +88,7 @@ int main(int argc, char* argv[])
 	if (!argStatus)
 		return 1;
 
+	// Grab the filename from the argument
 	std::string filename = std::string(argv[1]);
 
 	CreateOffsetsFile(filename, 0x400000);

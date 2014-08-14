@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 #pragma once
 #include <string>
 
+#include "Shlwapi.h"
+#pragma comment(lib, "Shlwapi.lib")
+
 /*	This file is intended to be a convenient way for all projects
 in this solution to access offsets provided by the OffsetFinder. */
 
