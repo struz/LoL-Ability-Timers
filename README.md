@@ -21,7 +21,7 @@ Once the DLL is injected, it hooks into some DirectX calls in order to draw text
 show each champions current cooldowns (although the interface isn't very good looking).
 
 ## Usage instructions
-Build the solution (two projects). Use the command line to run the OffsetFinder.exe tool with one command line argument pointing to the latest "League of Legends.exe" file (the one launched by the game when you enter a game). After doing this, run LoLHook.exe after League of Legends has entered the loading screen (or at any time from here on out during the game). Once in game you should then
+Build the solution (three projects). Use the command line to run the OffsetFinder.exe tool with one command line argument pointing to the latest "League of Legends.exe" file (the one launched by the game when you enter a game). After doing this, run LoLHook.exe after League of Legends has entered the loading screen (or at any time from here on out during the game). Once in game you should then
 be able to hold tab (or whatever other keybind is used for your scoreboard) and see the ability timers for every champion in the game.
 To remove this functionality you must restart the program, there are no inbuilt unhook / exit methods.
 
