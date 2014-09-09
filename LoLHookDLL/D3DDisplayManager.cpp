@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 #include "DataAccessor.h"
 #include "structs.h"
 #include "Spell.h"
+#include <stdexcept>
 
 // Global instantiation of this manager
 D3DDisplayManager* gpDisplayManager = NULL;
@@ -202,11 +203,25 @@ bool D3DDisplayManager::CacheChampionCooldownData() {
 			SpellDataInstAccessor spellDataInst = spellbook.GetSpellDataInstForSlot(i);
 
 			float cooldownSecs = spellDataInst.GetCooldownExpires() - simulationTime;
-			const char* summonerSpellName =
-				mSummonerSpellMap[
-					StringHolder_GetCString(
-						spellDataInst.GetSpellData().GetSpellName())
-				].c_str();
+
+			std::string summonerSpellNameStr = 
+				StringHolder_GetCString(spellDataInst.GetSpellData()
+				.GetSpellName());
+
+			// the hopefully resolved name from our lookup table
+			std::string summonerSpellNameStrResolved;
+
+			try {
+				summonerSpellNameStrResolved = 
+					mSummonerSpellMap.at(summonerSpellNameStr);
+			}
+			catch (const std::out_of_range) {
+				// The spell name wasn't in our predefined lookup table
+				// Print the ugly internal name instead
+				summonerSpellNameStrResolved = summonerSpellNameStr;
+			}
+
+			const char* summonerSpellName = summonerSpellNameStrResolved.c_str();
 
 			if (cooldownSecs <= 0.0f)
 				_snprintf_s(outputBuf, sizeof(outputBuf), "%s: UP\n", summonerSpellName);

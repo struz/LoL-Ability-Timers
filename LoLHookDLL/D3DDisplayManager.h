@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 #include "ObjAIAccessor.h"
 #include <string>
 
+// Struct defining parameters for laying out the small windows that
+// show each champion's cooldowns in-game
 struct DisplayParams {
 	LONG insetFromRight;
 	LONG insetFromTop;
@@ -27,6 +29,16 @@ struct DisplayParams {
 	LONG backdropWidth;
 	LONG backdropHeight;
 	LONG insetFromLeft;
+};
+
+// Custom comparator for the summoner spell name resolution map
+// that converts summoners spell names like "SummonerHeal" into
+// the more readable "Heal". Makes the comparison of strings
+// case insensitive.
+struct CaseInsComp {
+	bool operator() (const std::string& lhs, const std::string& rhs) const {
+		return _stricmp(lhs.c_str(), rhs.c_str()) < 0;
+	}
 };
 
 class D3DDisplayManager
@@ -48,7 +60,7 @@ protected:
 	// helper table convert ability num to key
 	char mAbilityKey[4];
 	// helper table convert summoner spell name to readable name
-	std::map<std::string, std::string> mSummonerSpellMap;
+	std::map<std::string, std::string, CaseInsComp> mSummonerSpellMap;
 	void InitializeSummonerSpellMap();
 
 	// Display related stuff
