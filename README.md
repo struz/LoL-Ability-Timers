@@ -1,3 +1,8 @@
+# This repository is majorly defunct
+It hasn't been updated in a long time. Please don't bother asking me for any of the documentation, it's likely largely useless now. Feel free to ask other things though.
+
+I've left the README below in the same format it was in when I wrote the software.
+
 # LoL Ability Timers
 
 ## Motivation
